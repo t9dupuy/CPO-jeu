@@ -1,0 +1,1 @@
+print("Mange tes morts")
