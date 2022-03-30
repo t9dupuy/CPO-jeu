@@ -4,9 +4,12 @@ GILLES, LE VU, WOLFF, DUPUY
 
 ## Projet
 
-Créer une application de visualisation de données géographiques mondiales.
+Créer un jeu pour sensibiliser aux problématiques autour des achats alimentaires.
+Pour cela l’utilisateur fera ses courses et au moment de passer à la caisse un score
+nutritionnel, environnemental et budgétaire lui sera attribué en fonction de ce qu’il
+aura choisis.
 
-Les données proviennent de l'**Organisation Mondiale de la Santé** et de leur portail **Global Health Observatory**.
+Le projet sera développé en python. Il utilisera la bibliothèque pygame.
 
 ## Détails
 
