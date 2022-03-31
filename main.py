@@ -8,11 +8,11 @@ def main():
     clk = pygame.time.Clock()
     
 
-    pygame.display.set_caption("minimal program")
+    pygame.display.set_caption("Jeu")
     screen = pygame.display.set_mode((1080,720))
 
     player = Player()
-    shop = pygame.image.load("resources/tiles/shop.png")
+    shop = pygame.image.load("resources/tiles/png/v1.png")
 
     
     products = []
@@ -40,7 +40,7 @@ def main():
         if(keys[pygame.K_LEFT]): player.move_left()
         if(keys[pygame.K_RIGHT]): player.move_right()
 
-        screen.fill((255,255,255))
+        screen.fill((58,58,80))
 
         screen.blit(shop, (0,0))
         player.draw(screen)

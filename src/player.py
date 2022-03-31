@@ -13,34 +13,65 @@ class Player:
 
 	def load_images(self):
 		front = []
-		front.append(pygame.image.load("resources/player/front_idle.png"))
-		front.append(pygame.image.load("resources/player/front_walk1.png"))
-		front.append(pygame.image.load("resources/player/front_walk2.png"))
-		front.append(pygame.image.load("resources/cart/front.png"))
+		front.append(pygame.image.load("resources/player/p1/idle/front.png"))
+		front.append(pygame.image.load("resources/player/p1/push/front1.png"))
+		front.append(pygame.image.load("resources/player/p1/push/front2.png"))
+		front.append(pygame.image.load("resources/player/p1/push/front3.png"))
+		front.append(pygame.image.load("resources/player/p1/push/front4.png"))
+		front.append(pygame.image.load("resources/player/p1/push/front5.png"))
+		front.append(pygame.image.load("resources/player/p1/push/front6.png"))
+
+		for i, image in enumerate(front):
+			front[i] = pygame.transform.scale(image, (64,128))
+
+		front.append(pygame.transform.scale(pygame.image.load("resources/cart/front.png"), (128,128)))
 
 		self.sprite['front'] = front
 
 		back = []
-		back.append(pygame.image.load("resources/player/back_idle.png"))
-		back.append(pygame.image.load("resources/player/back_walk1.png"))
-		back.append(pygame.image.load("resources/player/back_walk2.png"))
-		back.append(pygame.image.load("resources/cart/back.png"))
+		back.append(pygame.image.load("resources/player/p1/idle/back.png"))
+		back.append(pygame.image.load("resources/player/p1/push/back1.png"))
+		back.append(pygame.image.load("resources/player/p1/push/back2.png"))
+		back.append(pygame.image.load("resources/player/p1/push/back3.png"))
+		back.append(pygame.image.load("resources/player/p1/push/back4.png"))
+		back.append(pygame.image.load("resources/player/p1/push/back5.png"))
+		back.append(pygame.image.load("resources/player/p1/push/back6.png"))
+
+		for i, image in enumerate(back):
+			back[i] = pygame.transform.scale(image, (64,128))
+
+		back.append(pygame.transform.scale(pygame.image.load("resources/cart/back.png"), (128,128)))
 
 		self.sprite['back'] = back
 
 		left = []
-		left.append(pygame.image.load("resources/player/left_idle.png"))
-		left.append(pygame.image.load("resources/player/left_walk1.png"))
-		left.append(pygame.image.load("resources/player/left_walk2.png"))
-		left.append(pygame.transform.scale(pygame.image.load("resources/cart/left.png"), (44,44)))
+		left.append(pygame.image.load("resources/player/p1/idle/left.png"))
+		left.append(pygame.image.load("resources/player/p1/push/left1.png"))
+		left.append(pygame.image.load("resources/player/p1/push/left2.png"))
+		left.append(pygame.image.load("resources/player/p1/push/left3.png"))
+		left.append(pygame.image.load("resources/player/p1/push/left4.png"))
+		left.append(pygame.image.load("resources/player/p1/push/left5.png"))
+		left.append(pygame.image.load("resources/player/p1/push/left6.png"))
+
+		for i, image in enumerate(left):
+			left[i] = pygame.transform.scale(image, (64,128))
+
+		left.append(pygame.transform.scale(pygame.image.load("resources/cart/left.png"), (128,128)))
 
 		self.sprite['left'] = left
 
 		right = []
-		right.append(pygame.image.load("resources/player/right_idle.png"))
-		right.append(pygame.image.load("resources/player/right_walk1.png"))
-		right.append(pygame.image.load("resources/player/right_walk2.png"))
-		right.append(pygame.transform.scale(pygame.image.load("resources/cart/right.png"), (44,44)))
+		right.append(pygame.image.load("resources/player/p1/idle/right.png"))
+		right.append(pygame.image.load("resources/player/p1/push/right1.png"))
+		right.append(pygame.image.load("resources/player/p1/push/right2.png"))
+		right.append(pygame.image.load("resources/player/p1/push/right3.png"))
+		right.append(pygame.image.load("resources/player/p1/push/right4.png"))
+		right.append(pygame.image.load("resources/player/p1/push/right5.png"))
+		right.append(pygame.image.load("resources/player/p1/push/right6.png"))
+		for i, image in enumerate(right):
+			right[i] = pygame.transform.scale(image, (64,128))
+
+		right.append(pygame.transform.scale(pygame.image.load("resources/cart/right.png"), (128,128)))
 
 		self.sprite['right'] = right
 
@@ -63,25 +94,26 @@ class Player:
 
 
 	def draw(self, screen):
-		
-		#cart
+
+		#when player is facing back
 		if(self.facing == 'back'):
-			screen.blit(self.sprite[self.facing][3], [self.pos_rel[0]+6, self.pos_rel[1]-10])
+			screen.blit(self.sprite['back'][7], (self.pos_rel[0] - 2, self.pos_rel[1] - 20))
 
 		if(self.walking):
+			frame_per_image = 6
 			self._count += 1
-			if(self._count < 10):
-				screen.blit(self.sprite[self.facing][1], self.pos_rel)
-			elif(self._count < 20):
-				screen.blit(self.sprite[self.facing][2], self.pos_rel)
-				if(self._count == 19): self._count = 0
+			self._count %= (6 * frame_per_image)
+			screen.blit(self.sprite[self.facing][1 + int(self._count/frame_per_image)], self.pos_rel)
 		else:
 			screen.blit(self.sprite[self.facing][0], self.pos_rel)
 
-		#cart
+		#when player is facing front
 		if(self.facing == 'front'):
-			screen.blit(self.sprite[self.facing][3], [self.pos_rel[0]+6, self.pos_rel[1]+70])
+			screen.blit(self.sprite['front'][7], (self.pos_rel[0] - 7, self.pos_rel[1] + 70))
+		#when player is facing left
 		if(self.facing == 'left'):
-			screen.blit(self.sprite[self.facing][3], [self.pos_rel[0]-20, self.pos_rel[1]+65])
+			screen.blit(self.sprite['left'][7], (self.pos_rel[0] - 83, self.pos_rel[1] + 20))
+		#when player is facing right
 		if(self.facing == 'right'):
-			screen.blit(self.sprite[self.facing][3], [self.pos_rel[0]+35, self.pos_rel[1]+65])
+			screen.blit(self.sprite['right'][7], (self.pos_rel[0] + 58, self.pos_rel[1] + 20))
+
