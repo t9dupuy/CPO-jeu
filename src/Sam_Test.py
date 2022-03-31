@@ -1,1 +1,0 @@
-print("Mange tes morts")
