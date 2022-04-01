@@ -22,7 +22,7 @@ class Game(metaclass=Singleton):
         self.collision_layer = Image.open("resources/tiles/png/collision.png").load()
         self.map_pos_rel = [-1500, -1300]
 
-        self.borders = [100, 620, 100, 980]
+        self.borders = [300, 520, 200, 880]
 
         self.fonts = {'pixels32': pygame.font.Font("resources/fonts/pixels.ttf", 32)}
 
@@ -38,8 +38,9 @@ class Game(metaclass=Singleton):
 
     def move_up(self):
         self.player.facing = 'back'
+        self.player.walking = True
 
-        hitbox = [-2, 20, 70, 100]
+        hitbox = [8, 20, 50, 100]
         # [offset_x, offset_y, width, height] of the outside rectangle
 
         new_y = self.player.pos_rel[1] - 10
@@ -52,8 +53,9 @@ class Game(metaclass=Singleton):
 
     def move_down(self):
         self.player.facing = 'front'
+        self.player.walking = True
 
-        hitbox = [-5, 30, 65, 160]
+        hitbox = [5, 100, 45, 80]
         # [offset_x, offset_y, width, height] of the outside rectangle
 
         new_y = self.player.pos_rel[1] + 10
@@ -66,8 +68,9 @@ class Game(metaclass=Singleton):
 
     def move_left(self):
         self.player.facing = 'left'
+        self.player.walking = True
 
-        hitbox = [-80, 40, 135, 95]
+        hitbox = [-80, 70, 70, 50]
         # [offset_x, offset_y, width, height] of the outside rectangle
 
         new_x = self.player.pos_rel[0] - 10
@@ -80,8 +83,9 @@ class Game(metaclass=Singleton):
 
     def move_right(self):
         self.player.facing = 'right'
+        self.player.walking = True
 
-        hitbox = [5, 40, 135, 95]
+        hitbox = [70, 70, 70, 50]
         # [offset_x, offset_y, width, height] of the outside rectangle
 
         new_x = self.player.pos_rel[0] + 10
@@ -128,6 +132,8 @@ class Game(metaclass=Singleton):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+
+            self.player.walking = False
 
             self.handle_input(keys=pygame.key.get_pressed())
 

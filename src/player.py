@@ -30,8 +30,8 @@ class Player:
         self.pos_rel: list[float, 2] = [500, 600]
 
         # Information about the player
-        self.facing: str = 'front'
-        self.walking: bool = True
+        self.facing: str = 'back'
+        self.walking: bool = False
 
         # Counter for sprites (animation of the player)
         self.__count: int = 0
