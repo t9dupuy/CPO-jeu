@@ -1,4 +1,5 @@
 import pygame
+from PIL import Image
 from src.player import Player
 
 
@@ -18,7 +19,8 @@ class Game(metaclass=Singleton):
 
         self.player: Player = Player()
         self.map: pygame.image = pygame.image.load("resources/tiles/png/v1.png")
-        self.map_pos_rel = [0, 0]
+        self.collision_layer = Image.open("resources/tiles/png/collision.png").load()
+        self.map_pos_rel = [-1500, -1300]
 
         self.borders = [100, 620, 100, 980]
 
@@ -42,10 +44,11 @@ class Game(metaclass=Singleton):
 
         new_y = self.player.pos_rel[1] - 10
 
-        if new_y + hitbox[1] < self.borders[0]:
-            self.map_pos_rel[1] += 10
-        else:
-            self.player.pos_rel[1] = new_y
+        if not self.check_collisions([self.player.pos_rel[0], new_y], hitbox):
+            if new_y + hitbox[1] < self.borders[0]:
+                self.map_pos_rel[1] += 10
+            else:
+                self.player.pos_rel[1] = new_y
 
     def move_down(self):
         self.player.facing = 'front'
@@ -55,10 +58,11 @@ class Game(metaclass=Singleton):
 
         new_y = self.player.pos_rel[1] + 10
 
-        if new_y + hitbox[1] + hitbox[3] > self.borders[1]:
-            self.map_pos_rel[1] -= 10
-        else:
-            self.player.pos_rel[1] = new_y
+        if not self.check_collisions([self.player.pos_rel[0], new_y], hitbox):
+            if new_y + hitbox[1] + hitbox[3] > self.borders[1]:
+                self.map_pos_rel[1] -= 10
+            else:
+                self.player.pos_rel[1] = new_y
 
     def move_left(self):
         self.player.facing = 'left'
@@ -68,10 +72,11 @@ class Game(metaclass=Singleton):
 
         new_x = self.player.pos_rel[0] - 10
 
-        if new_x + hitbox[0] < self.borders[2]:
-            self.map_pos_rel[0] += 10
-        else:
-            self.player.pos_rel[0] = new_x
+        if not self.check_collisions([new_x, self.player.pos_rel[1]], hitbox):
+            if new_x + hitbox[0] < self.borders[2]:
+                self.map_pos_rel[0] += 10
+            else:
+                self.player.pos_rel[0] = new_x
 
     def move_right(self):
         self.player.facing = 'right'
@@ -81,10 +86,35 @@ class Game(metaclass=Singleton):
 
         new_x = self.player.pos_rel[0] + 10
 
-        if new_x + hitbox[0] + hitbox[2] > self.borders[3]:
-            self.map_pos_rel[0] -= 10
-        else:
-            self.player.pos_rel[0] = new_x
+        if not self.check_collisions([new_x, self.player.pos_rel[1]], hitbox):
+            if new_x + hitbox[0] + hitbox[2] > self.borders[3]:
+                self.map_pos_rel[0] -= 10
+            else:
+                self.player.pos_rel[0] = new_x
+
+    def check_collisions(self, new_pos: list[float, 2], hitbox: list[float, 4]):
+        num_points = 3
+
+        points = []
+
+        for n in range(num_points):
+            points.append((new_pos[0] + hitbox[0] + n * (hitbox[2]/num_points),
+                           new_pos[1] + hitbox[1]))
+        for n in range(num_points):
+            points.append((new_pos[0] + hitbox[0] + hitbox[2],
+                           new_pos[1] + hitbox[1] + n * (hitbox[3]/num_points)))
+        for n in range(num_points):
+            points.append((new_pos[0] + hitbox[0] + hitbox[2] - n * (hitbox[2]/num_points),
+                           new_pos[1] + hitbox[1] + hitbox[3]))
+        for n in range(num_points):
+            points.append((new_pos[0] + hitbox[0],
+                           new_pos[1] + hitbox[1] + hitbox[3] - n * (hitbox[3]/num_points)))
+
+        for point in points:
+            if self.collision_layer[point[0] - self.map_pos_rel[0], point[1] - self.map_pos_rel[1]] == (0, 0, 0, 255):
+                return True
+
+        return False
 
     def run(self):
         clk = pygame.time.Clock()

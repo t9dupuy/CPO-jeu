@@ -27,7 +27,7 @@ class Player:
         self.__load_images()
 
         # Position relative to the screen
-        self.pos_rel: list[float, 2] = [0, 0]
+        self.pos_rel: list[float, 2] = [500, 600]
 
         # Information about the player
         self.facing: str = 'front'
