@@ -4,6 +4,13 @@ from src.player import Player
 
 
 class Singleton(type):
+    """
+    Singleton pattern. To be used as metaclass.
+
+    See also
+    --------
+    class Game
+    """
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
@@ -13,20 +20,33 @@ class Singleton(type):
 
 
 class Game(metaclass=Singleton):
-
+    """
+    Game class containing all basic information about the game state and parameters
+    """
     def __init__(self):
         pygame.init()
 
+        # Player instance
         self.player: Player = Player()
+
+        # Background image of the map
         self.map: pygame.image = pygame.image.load("resources/tiles/png/v1.png")
-        self.collision_layer = Image.open("resources/tiles/png/collision.png").load()
         self.map_pos_rel = [-1500, -1300]
 
+        # Collision layer image (as 2 dimensions array of pixels). Used for collision detection
+        self.collision_layer = Image.open("resources/tiles/png/collision.png").load()
+
+        # Invisible borders used to move the map instead of player.
         self.borders = [300, 520, 200, 880]
 
+        # Dictionary of fonts
         self.fonts = {'pixels32': pygame.font.Font("resources/fonts/pixels.ttf", 32)}
 
     def handle_input(self, keys):
+        """
+        Function to handle all keyboard inputs through pygame's 'key.get_pressed()' method.
+        :param keys: list of all pressed keys (acquired through 'pygame.key.get_pressed()' method).
+        """
         if keys[pygame.K_UP]:
             self.move_up()
         elif keys[pygame.K_DOWN]:
@@ -37,11 +57,14 @@ class Game(metaclass=Singleton):
             self.move_right()
 
     def move_up(self):
+        """
+        Rather self-explanatory. Also runs the collision checker for the player.
+        """
         self.player.facing = 'back'
         self.player.walking = True
 
         hitbox = [8, 20, 50, 100]
-        # [offset_x, offset_y, width, height] of the outside rectangle
+        # [offset_x, offset_y, width, height]
 
         new_y = self.player.pos_rel[1] - 10
 
@@ -52,11 +75,13 @@ class Game(metaclass=Singleton):
                 self.player.pos_rel[1] = new_y
 
     def move_down(self):
+        """
+        Rather self-explanatory. Also runs the collision checker for the player.
+        """
         self.player.facing = 'front'
         self.player.walking = True
 
         hitbox = [5, 100, 45, 80]
-        # [offset_x, offset_y, width, height] of the outside rectangle
 
         new_y = self.player.pos_rel[1] + 10
 
@@ -67,11 +92,13 @@ class Game(metaclass=Singleton):
                 self.player.pos_rel[1] = new_y
 
     def move_left(self):
+        """
+        Rather self-explanatory. Also runs the collision checker for the player.
+        """
         self.player.facing = 'left'
         self.player.walking = True
 
         hitbox = [-80, 70, 70, 50]
-        # [offset_x, offset_y, width, height] of the outside rectangle
 
         new_x = self.player.pos_rel[0] - 10
 
@@ -82,11 +109,13 @@ class Game(metaclass=Singleton):
                 self.player.pos_rel[0] = new_x
 
     def move_right(self):
+        """
+        Rather self-explanatory. Also runs the collision checker for the player.
+        """
         self.player.facing = 'right'
         self.player.walking = True
 
         hitbox = [70, 70, 70, 50]
-        # [offset_x, offset_y, width, height] of the outside rectangle
 
         new_x = self.player.pos_rel[0] + 10
 
@@ -96,7 +125,16 @@ class Game(metaclass=Singleton):
             else:
                 self.player.pos_rel[0] = new_x
 
-    def check_collisions(self, new_pos: list[float, 2], hitbox: list[float, 4]):
+    def check_collisions(self, new_pos: list[float, 2], hitbox: list[float, 4]) -> bool:
+        """
+        Collision checker for the player.
+
+        Generate points on the player's hitbox rectangle and checks for each point
+        if the corresponding pixel on the collision layer is black (if so, a collision is detected).
+        :param new_pos: Player's next position
+        :param hitbox: Player's hitbox
+        :return: True if a collision is detected
+        """
         num_points = 3
 
         points = []
@@ -121,6 +159,9 @@ class Game(metaclass=Singleton):
         return False
 
     def run(self):
+        """
+        Rather self-explanatory: runs the game.
+        """
         clk = pygame.time.Clock()
 
         pygame.display.set_caption("Jeu")

@@ -15,6 +15,8 @@ class Player:
         direction the player is currently facing. Possible values are {'front', 'back', 'left', 'right'}.
     walking : bool
         whether the player is walking or not (idle).
+    basket : list
+        all the products chosen by the player.
 
     Methods
     -------
@@ -32,6 +34,9 @@ class Player:
         # Information about the player
         self.facing: str = 'back'
         self.walking: bool = False
+
+        # Basket with all products
+        self.basket: list = []
 
         # Counter for sprites (animation of the player)
         self.__count: int = 0
