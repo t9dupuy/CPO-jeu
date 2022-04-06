@@ -17,13 +17,10 @@ class Product:
         """
         # define product size on screen
         self.path_sprit = pygame.transform.scale(self.path_sprit, (64, 64))
-        screen.blit(self.path_sprit, (self.pos_rel[0], self.pos_rel[1]))
+        screen.blit(self.path_sprit, self.pos_rel)
 
-def Instance_Products(screen): #Intenciation des Produits
-    #Test
-    product = Product(4, 4, 3, [1.0, 1.0], pygame.image.load("resources/products/16x16/cod.png"))
+
+def instance_products(screen):  # Intenciation des Produits
+
+    product = Product(4, 4, 3, [110, 110], pygame.image.load("resources/products/16x16/cod.png"))
     product.draw(screen)
-
-
-
-
