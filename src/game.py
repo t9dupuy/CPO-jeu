@@ -52,7 +52,7 @@ class Game(metaclass=Singleton):
 
             screen.fill((58, 58, 80))
 
-            screen.blit(self.map, (0, 0))
+            screen.blit(self.map, (-1000, -1000))
             self.player.draw(screen)
 
             pygame.display.update()
