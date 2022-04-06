@@ -185,7 +185,7 @@ class Game(metaclass=Singleton):
             self.player.draw(screen)
 
             #Display product
-            Instance_Products(screen)
+            instance_products(screen)
 
             pygame.display.update()
 
