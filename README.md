@@ -11,27 +11,6 @@ aura choisis.
 
 Le projet sera développé en python. Il utilisera la bibliothèque pygame.
 
-## Détails
-
-Le projet est divisé en deux parties : une première partie en **Python** pour la récupération et le traitement des données,
-et une seconde partie en **C++** pour l'aspect graphique de l'application.
-
-Le code **Python** est fortement orienté object et utilise les bibliothèques *pandas* et *geopandas* pour le traitement des données.
-
-Le code **C++** est plus technique et moins intéressant du point de vue orienté object.
-La partie graphique de l'application s'appuis sur l'interface *OpenGL* et sur les bibliothèques *GLEW*, *GLFW*, *GLM* et *Dear ImGui*.
-
-## Build
-
-Le projet est construit avec **makefile** pour Windows. Les *targets* utilisables sont :
-
-- *clean* : supprime les fichers **.o**, **.d**, **.exe**
-- *clear* : supprime les fichers **.o**, **.d**
-- *rebuild* : compile et link l'entièreté du projet
-- *all* : clean, rebuild puis clear le projet pour ne laisser que l'éxécutable (à privilégier)
-
-Les arguments et autres options de constructions sont disponibles en haut du fichier *GNUmakefile* (opt, clang, no-warn).
-
 ## Git
 
 Pour définir son nom et mail :
