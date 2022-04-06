@@ -1,5 +1,6 @@
 import pygame
 from src.player import Player
+from src.Product import *
 
 
 class Singleton(type):
@@ -54,6 +55,9 @@ class Game(metaclass=Singleton):
 
             screen.blit(self.map, (0, 0))
             self.player.draw(screen)
+
+            #Display product
+            Instance_Products(screen)
 
             pygame.display.update()
 
