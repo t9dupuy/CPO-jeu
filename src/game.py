@@ -56,6 +56,9 @@ class Game(metaclass=Singleton):
         elif keys[pygame.K_RIGHT]:
             self.move_right()
 
+    def move_map(self, new_pos: list[float, 2]):
+        self.map_pos_rel = new_pos
+
     def move_up(self):
         """
         Rather self-explanatory. Also runs the collision checker for the player.
@@ -70,7 +73,7 @@ class Game(metaclass=Singleton):
 
         if not self.check_collisions([self.player.pos_rel[0], new_y], hitbox):
             if new_y + hitbox[1] < self.borders[0]:
-                self.map_pos_rel[1] += 10
+                self.move_map([self.map_pos_rel[0], self.map_pos_rel[1] + 10])
             else:
                 self.player.pos_rel[1] = new_y
 
@@ -87,7 +90,7 @@ class Game(metaclass=Singleton):
 
         if not self.check_collisions([self.player.pos_rel[0], new_y], hitbox):
             if new_y + hitbox[1] + hitbox[3] > self.borders[1]:
-                self.map_pos_rel[1] -= 10
+                self.move_map([self.map_pos_rel[0], self.map_pos_rel[1] - 10])
             else:
                 self.player.pos_rel[1] = new_y
 
@@ -104,7 +107,7 @@ class Game(metaclass=Singleton):
 
         if not self.check_collisions([new_x, self.player.pos_rel[1]], hitbox):
             if new_x + hitbox[0] < self.borders[2]:
-                self.map_pos_rel[0] += 10
+                self.move_map([self.map_pos_rel[0] + 10, self.map_pos_rel[1]])
             else:
                 self.player.pos_rel[0] = new_x
 
@@ -121,7 +124,7 @@ class Game(metaclass=Singleton):
 
         if not self.check_collisions([new_x, self.player.pos_rel[1]], hitbox):
             if new_x + hitbox[0] + hitbox[2] > self.borders[3]:
-                self.map_pos_rel[0] -= 10
+                self.move_map([self.map_pos_rel[0] - 10, self.map_pos_rel[1]])
             else:
                 self.player.pos_rel[0] = new_x
 
