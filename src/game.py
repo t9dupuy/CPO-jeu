@@ -1,6 +1,7 @@
 import pygame
 from PIL import Image
 from src.player import Player
+from src.Product import *
 
 
 class Singleton(type):
@@ -185,6 +186,9 @@ class Game(metaclass=Singleton):
 
             screen.blit(self.map, self.map_pos_rel)
             self.player.draw(screen)
+
+            #Display product
+            Instance_Products(screen)
 
             pygame.display.update()
 
