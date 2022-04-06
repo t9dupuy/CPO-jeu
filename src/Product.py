@@ -3,12 +3,17 @@ import pygame
 
 
 class Product:
-    def __init__(self, sante, environementale, budget, pos_rel, path_sprit):
+    def __init__(self, sante, environementale, budget, pos_fix, pos_rel, sprite):
         self.sante = sante
         self.environementale = environementale
         self.budget = budget
+        self.pos_fix = pos_fix
         self.pos_rel = pos_rel
-        self.path_sprit = path_sprit
+        self.sprite = sprite
+
+    def update(self, map_pos_rel):
+        for i in range(2):
+            self.pos_rel[i] = self.pos_fix[i] + map_pos_rel[i]
 
     def draw(self, screen: pygame.display):
         """
@@ -16,11 +21,13 @@ class Product:
         :param screen: 'pygame.display' screen to render on.
         """
         # define product size on screen
-        self.path_sprit = pygame.transform.scale(self.path_sprit, (64, 64))
-        screen.blit(self.path_sprit, self.pos_rel)
+        screen.blit(self.sprite, self.pos_rel)
 
 
-def instance_products(screen):  # Intenciation des Produits
+def instance_products(map_pos_rel):  # Intenciation des Produits
+    products = [Product(4, 4, 3, [500, 400], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/cod.png"), (64, 64))),]
 
-    product = Product(4, 4, 3, [110, 110], pygame.image.load("resources/products/16x16/cod.png"))
-    product.draw(screen)
+    for product in products:
+        product.update(map_pos_rel)
+
+    return products
