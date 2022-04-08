@@ -1,6 +1,5 @@
-# import sys module
 import pygame
-import sys
+
 
 def player_name():
     # pygame.init() will initialize all
@@ -27,24 +26,19 @@ def player_name():
     # color_passive store color(grey) which is
     # color of input box.
     color_passive = pygame.Color('grey')
-    color = color_passive
 
     active = False
 
-
-    rectScreen = screen.get_rect()
-    texte = base_font.render("Quel est ton nom?",True,pygame.Color("black"))
-    rectTexte = texte.get_rect()
-    rectTexte.center = (100,50)
-
+    texte = base_font.render("Quel est ton nom?", True, pygame.Color("black"))
+    recttexte = texte.get_rect()
+    recttexte.center = (100, 50)
 
     while True:
         for event in pygame.event.get():
 
-        # if user types QUIT then the screen will close
+            # if user types QUIT then the screen will close
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                return user_text
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if input_rect.collidepoint(event.pos):
@@ -73,12 +67,8 @@ def player_name():
         else:
             color = color_passive
 
-
         screen.fill(pygame.Color("white"))
-        screen.blit(texte,rectTexte)
-
-
-
+        screen.blit(texte, recttexte)
 
         # draw rectangle and argument passed which should
         # be on screen
@@ -101,9 +91,7 @@ def player_name():
         # 60 frames should be passed.
         clock.tick(60)
 
-    return user_text
-
 
 if __name__ == '__main__':
-    user_name=player_name()
-    print (user_name)
+    user_name = player_name()
+    print(user_name)
