@@ -21,3 +21,9 @@ Recherche des éléments graphiques du jeu (personnage, carte, produit). Familia
 Creation d'une première fenêtre de jeu. 
 
 
+Creation de la classe produit. Debu de l'affichage sur l'ecran. 
+
+## Semaine 2 
+
+Affichage des Produits, dabord en statique sur l'ecran pui en dynamique. Implementation de trois produit et placement sur la carte. 
+Graphique en étoile sur Notbook. 
