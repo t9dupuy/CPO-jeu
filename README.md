@@ -10,3 +10,10 @@ nutritionnel, environnemental et budgétaire lui sera attribué en fonction de c
 aura choisis.
 
 Le projet sera développé en python. Il utilisera la bibliothèque pygame.
+
+## Avancées
+
+### Semaine 1
+
+Recherche des éléments graphiques du jeu (personnage, carte, produit). Familiarisation avec la bibliotèque pygame.
+Creation d'une première fenêtre de jeu 
