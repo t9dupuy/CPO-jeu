@@ -25,5 +25,9 @@ Creation de la classe produit. Debu de l'affichage sur l'ecran.
 
 ## Semaine 2 
 
-Affichage des Produits, dabord en statique sur l'ecran pui en dynamique. Implementation de trois produit et placement sur la carte. 
+Affichage des Produits, dabord en statique sur l'ecran pui en dynamique. Implementation de trois produits et placement sur la carte. 
 Graphique en étoile sur Notbook. 
+
+##Semaine 3
+avancement sur le menu du jeu et choix de conceptions s ur les caractéristiques. 
+  -Un budjet dera aloué au debut et si il est dépassé le score de budjet sera moins important
