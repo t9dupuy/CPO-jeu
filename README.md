@@ -28,6 +28,12 @@ Creation de la classe produit. Debu de l'affichage sur l'ecran.
 Affichage des Produits, dabord en statique sur l'ecran pui en dynamique. Implementation de trois produits et placement sur la carte. 
 Graphique en étoile sur Notbook. 
 
+Redéfinition de certains paramètres : mise en place d'un score selon trois citères (apport nutritif, impact sur l'environnement, respect du budget).
+L'objetcif est donc désormais d'obtenir le meilleur score de nutrition et d'environnement en respectant un budget alloué au début du jeu.
+
+
 ##Semaine 3
 avancement sur le menu du jeu et choix de conceptions s ur les caractéristiques. 
   -Un budjet dera aloué au debut et si il est dépassé le score de budjet sera moins important
+  
+Début du développemnt du menu.
