@@ -37,3 +37,8 @@ avancement sur le menu du jeu et choix de conceptions s ur les caractéristiques
   -Un budjet dera aloué au debut et si il est dépassé le score de budjet sera moins important
   
 Début du développemnt du menu.
+
+##Semaine 4 
+
+Passage du prorotype du graphe à l'utilisation dans le jeu. Passer de jupyter notbook à un fichier .py et enregistrer l'image en .png
+De plus il y avait des problèmes de compatibilité des librairies. 
