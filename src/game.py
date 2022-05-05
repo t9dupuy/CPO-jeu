@@ -1,6 +1,7 @@
 import pygame
 from PIL import Image
 from src.player import Player
+from src.Product import *
 
 
 class Singleton(type):
@@ -26,12 +27,15 @@ class Game(metaclass=Singleton):
     def __init__(self):
         pygame.init()
 
-        # Player instance
-        self.player: Player = Player()
-
         # Background image of the map
         self.map: pygame.image = pygame.image.load("resources/tiles/png/v1.png")
         self.map_pos_rel = [-1500, -1300]
+
+        # Player instance
+        self.player: Player = Player()
+
+        # Products
+        self.products = instance_products(self.map_pos_rel)
 
         # Collision layer image (as 2 dimensions array of pixels). Used for collision detection
         self.collision_layer = Image.open("resources/tiles/png/collision.png").load()
@@ -58,6 +62,8 @@ class Game(metaclass=Singleton):
 
     def move_map(self, new_pos: list[float, 2]):
         self.map_pos_rel = new_pos
+        for product in self.products:
+            product.update(self.map_pos_rel)
 
     def move_up(self):
         """
@@ -185,6 +191,10 @@ class Game(metaclass=Singleton):
 
             screen.blit(self.map, self.map_pos_rel)
             self.player.draw(screen)
+
+            #Display product
+            for product in self.products:
+                product.draw(screen)
 
             pygame.display.update()
 
