@@ -6,10 +6,6 @@ class Menu():
         pygame.init()
 
         self.background = pygame.image.load("resources/wallpaper/market.jpg")
-
-    #def get_font(self, size):  # Returns Press-Start-2P in the desired size
-     #   return pygame.font.Font("resources/assets/font.ttf", size)
-
     def run(self):
 
         width = 1080
