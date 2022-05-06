@@ -6,19 +6,16 @@ class Menu():
         pygame.init()
 
         self.background = pygame.image.load("resources/wallpaper/market.jpg")
-
-    def get_font(self, size):  # Returns Press-Start-2P in the desired size
-        return pygame.font.Font("resources/assets/font.ttf", size)
-
     def run(self):
 
         width = 1080
         length = 720
 
-        font_= pygame.font.Font("resources/assets/font.ttf", 75)
+
 
         pygame.display.set_caption("Menu")
         screen = pygame.display.set_mode((width, length))
+
 
         running = True
         while running:
@@ -27,16 +24,16 @@ class Menu():
 
             menu_mouse_pos = pygame.mouse.get_pos()
 
-            menu_text = pygame.font.Font("resources/assets/font.ttf", 100).render("MENU", True, "Black")
+            menu_text = pygame.font.Font("resources/fonts/pixels.ttf", 100).render("MENU", True, "White")
             menu_rect = menu_text.get_rect(center=(width / 2, length / 5))
 
-            play_button = Button(image=pygame.image.load("resources/assets/Play Rect.png"), pos=(width/2, 2*length/5),
-                                 text_input="PLAY", font=font_, base_color="Black", hovering_color="Grey")
-            options_button = Button(image=pygame.image.load("resources/assets/Options Rect.png"), pos=(width/2, 3*length/5),
-                                    text_input="OPTIONS", font=font_, base_color="Black",
+            play_button = Button(color=(205,92,92), size=(width/2, length/7), radius=5, pos=(width/2, 2*length/5),
+                                 text_input="PLAY", font_type="resources/fonts/pixels.ttf", base_color="White", hovering_color="Grey")
+            options_button = Button(color=(205,92,92), size=(width/2, length/7), radius=5, pos=(width/2, 3*length/5),
+                                    text_input="OPTIONS", font_type="resources/fonts/pixels.ttf", base_color="White",
                                     hovering_color="Grey")
-            quit_button = Button(image=pygame.image.load("resources/assets/Quit Rect.png"), pos=(width/2, 4*length/5),
-                                 text_input="QUIT", font=font_, base_color="Black", hovering_color="Grey")
+            quit_button = Button(color=(205,92,92), size=(width/2, length/7), radius=5, pos=(width/2, 4*length/5),
+                                 text_input="QUIT", font_type="resources/fonts/pixels.ttf", base_color="White", hovering_color="Grey")
 
             screen.blit(menu_text, menu_rect)
 
@@ -65,22 +62,38 @@ class Menu():
         pygame.quit()
 
 class Button():
-    def __init__(self, image, pos, text_input, font, base_color, hovering_color):
-        self.image = image
+    def __init__(self, color, size, radius, pos, text_input, font_type, base_color, hovering_color):
+        self.r_color = color[0]
+        self.g_color = color[1]
+        self.b_color = color[2]
+        self.x_size = size[0]
+        self.y_size = size[1]
+        self.radius = radius
         self.x_pos = pos[0]
         self.y_pos = pos[1]
-        self.font = font
+        self.font_type = font_type
         self.base_color, self.hovering_color = base_color, hovering_color
+
+        self.font = pygame.font.Font(self.font_type, int(self.y_size - 20))
+
+
         self.text_input = text_input
         self.text = self.font.render(self.text_input, True, self.base_color)
-        if self.image is None:
-            self.image = self.text
-        self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+
+        self.x_corner = self.x_pos - (self.x_size/2)
+        self.y_corner = self.y_pos - (self.y_size/2)
+
+        self.color_rect = pygame.Color(self.r_color, self.g_color, self.b_color)
+        self.rect = pygame.Rect(self.x_corner, self.y_corner, self.x_size, self.y_size)
+
+
+
         self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
 
     def update(self, screen):
-        if self.image is not None:
-            screen.blit(self.image, self.rect)
+        #if self.image is not None:
+        pygame.draw.rect(screen, self.color_rect, self.rect, 0, self.radius)
+        #screen.blit(, self.rect)
         screen.blit(self.text, self.text_rect)
 
     def checkForInput(self, position):
