@@ -175,9 +175,8 @@ class Game(metaclass=Singleton):
             self.player.basket.append(self.products.pop(argmin(dist)))
 
     def run(self, screen):
-        """
-        Rather self-explanatory: runs the game.
-        """
+        from __main__ import State
+
         clk = pygame.time.Clock()
 
         running = True
@@ -207,4 +206,4 @@ class Game(metaclass=Singleton):
 
             clk.tick(60)
 
-        pygame.quit()
+        return None

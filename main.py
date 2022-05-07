@@ -29,7 +29,7 @@ def main():
             case State.PARAM:
                 print("In parameters")
             case State.GAME:
-                game.run(screen)
+                state = game.run(screen)
             case State.END_MENU:
                 print("In end menu")
             case _:
