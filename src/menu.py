@@ -2,7 +2,6 @@ import pygame
 
 
 class Menu:
-
     def __init__(self):
         self.background = pygame.image.load("resources/wallpaper/market.jpg")
 
@@ -11,6 +10,21 @@ class Menu:
 
         width, height = screen.get_size()
 
+        menu_text = pygame.font.Font("resources/fonts/pixels.ttf", 100).render("MENU", True, "White")
+        menu_rect = menu_text.get_rect(center=(width / 2, height / 5))
+
+        play_button = Button(color=(205, 92, 92), size=(width/2, height/7), radius=5, pos=(width/2, 2*height/5),
+                             text_input="PLAY", font_type="resources/fonts/pixels.ttf", base_color="White",
+                             hovering_color="Grey")
+        options_button = Button(color=(205, 92, 92), size=(width/2, height/7), radius=5, pos=(width/2, 3*height/5),
+                                text_input="OPTIONS", font_type="resources/fonts/pixels.ttf", base_color="White",
+                                hovering_color="Grey")
+        quit_button = Button(color=(205, 92, 92), size=(width/2, height/7), radius=5, pos=(width/2, 4*height/5),
+                             text_input="QUIT", font_type="resources/fonts/pixels.ttf", base_color="White",
+                             hovering_color="Grey")
+
+        buttons = [play_button, options_button, quit_button]
+
         running = True
         while running:
 
@@ -18,20 +32,9 @@ class Menu:
 
             menu_mouse_pos = pygame.mouse.get_pos()
 
-            menu_text = pygame.font.Font("resources/fonts/pixels.ttf", 100).render("MENU", True, "White")
-            menu_rect = menu_text.get_rect(center=(width / 2, height / 5))
-
-            play_button = Button(color=(205,92,92), size=(width/2, height/7), radius=5, pos=(width/2, 2*height/5),
-                                 text_input="PLAY", font_type="resources/fonts/pixels.ttf", base_color="White", hovering_color="Grey")
-            options_button = Button(color=(205,92,92), size=(width/2, height/7), radius=5, pos=(width/2, 3*height/5),
-                                    text_input="OPTIONS", font_type="resources/fonts/pixels.ttf", base_color="White",
-                                    hovering_color="Grey")
-            quit_button = Button(color=(205,92,92), size=(width/2, height/7), radius=5, pos=(width/2, 4*height/5),
-                                 text_input="QUIT", font_type="resources/fonts/pixels.ttf", base_color="White", hovering_color="Grey")
-
             screen.blit(menu_text, menu_rect)
 
-            for button in [play_button, options_button, quit_button]:
+            for button in buttons:
                 button.changeColor(menu_mouse_pos)
                 button.update(screen)
 
@@ -50,21 +53,16 @@ class Menu:
 
             pygame.display.update()
 
-class Button():
+
+class Button:
     def __init__(self, color, size, radius, pos, text_input, font_type, base_color, hovering_color):
-        self.r_color = color[0]
-        self.g_color = color[1]
-        self.b_color = color[2]
-        self.x_size = size[0]
-        self.y_size = size[1]
+        self.r_color, self.g_color, self.b_color = color
+        self.x_size, self.y_size = size
         self.radius = radius
-        self.x_pos = pos[0]
-        self.y_pos = pos[1]
-        self.font_type = font_type
+        self.x_pos, self.y_pos = pos
         self.base_color, self.hovering_color = base_color, hovering_color
 
-        self.font = pygame.font.Font(self.font_type, int(self.y_size - 20))
-
+        self.font = pygame.font.Font(font_type, int(self.y_size - 20))
 
         self.text_input = text_input
         self.text = self.font.render(self.text_input, True, self.base_color)
@@ -75,14 +73,10 @@ class Button():
         self.color_rect = pygame.Color(self.r_color, self.g_color, self.b_color)
         self.rect = pygame.Rect(self.x_corner, self.y_corner, self.x_size, self.y_size)
 
-
-
         self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
 
     def update(self, screen):
-        #if self.image is not None:
         pygame.draw.rect(screen, self.color_rect, self.rect, 0, self.radius)
-        #screen.blit(, self.rect)
         screen.blit(self.text, self.text_rect)
 
     def checkForInput(self, position):
