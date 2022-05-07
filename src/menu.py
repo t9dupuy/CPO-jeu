@@ -1,21 +1,15 @@
 import pygame
 
-class Menu():
+
+class Menu:
 
     def __init__(self):
-        pygame.init()
-
         self.background = pygame.image.load("resources/wallpaper/market.jpg")
-    def run(self):
 
-        width = 1080
-        length = 720
+    def run(self, screen):
+        from __main__ import State
 
-
-
-        pygame.display.set_caption("Menu")
-        screen = pygame.display.set_mode((width, length))
-
+        width, height = screen.get_size()
 
         running = True
         while running:
@@ -25,14 +19,14 @@ class Menu():
             menu_mouse_pos = pygame.mouse.get_pos()
 
             menu_text = pygame.font.Font("resources/fonts/pixels.ttf", 100).render("MENU", True, "White")
-            menu_rect = menu_text.get_rect(center=(width / 2, length / 5))
+            menu_rect = menu_text.get_rect(center=(width / 2, height / 5))
 
-            play_button = Button(color=(205,92,92), size=(width/2, length/7), radius=5, pos=(width/2, 2*length/5),
+            play_button = Button(color=(205,92,92), size=(width/2, height/7), radius=5, pos=(width/2, 2*height/5),
                                  text_input="PLAY", font_type="resources/fonts/pixels.ttf", base_color="White", hovering_color="Grey")
-            options_button = Button(color=(205,92,92), size=(width/2, length/7), radius=5, pos=(width/2, 3*length/5),
+            options_button = Button(color=(205,92,92), size=(width/2, height/7), radius=5, pos=(width/2, 3*height/5),
                                     text_input="OPTIONS", font_type="resources/fonts/pixels.ttf", base_color="White",
                                     hovering_color="Grey")
-            quit_button = Button(color=(205,92,92), size=(width/2, length/7), radius=5, pos=(width/2, 4*length/5),
+            quit_button = Button(color=(205,92,92), size=(width/2, height/7), radius=5, pos=(width/2, 4*height/5),
                                  text_input="QUIT", font_type="resources/fonts/pixels.ttf", base_color="White", hovering_color="Grey")
 
             screen.blit(menu_text, menu_rect)
@@ -48,18 +42,13 @@ class Menu():
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if play_button.checkForInput(menu_mouse_pos):
-                        pygame.quit()
+                        return State.GAME
                     if options_button.checkForInput(menu_mouse_pos):
-                        pygame.quit()
+                        return State.PARAM
                     if quit_button.checkForInput(menu_mouse_pos):
-                        pygame.quit()
+                        return None
 
-
-
-            pygame.display.flip()
-
-
-        pygame.quit()
+            pygame.display.update()
 
 class Button():
     def __init__(self, color, size, radius, pos, text_input, font_type, base_color, hovering_color):

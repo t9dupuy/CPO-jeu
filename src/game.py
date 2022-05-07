@@ -174,14 +174,11 @@ class Game(metaclass=Singleton):
         if dist:
             self.player.basket.append(self.products.pop(argmin(dist)))
 
-    def run(self):
+    def run(self, screen):
         """
         Rather self-explanatory: runs the game.
         """
         clk = pygame.time.Clock()
-
-        pygame.display.set_caption("Jeu")
-        screen = pygame.display.set_mode((1080, 720))
 
         running = True
         while running:
