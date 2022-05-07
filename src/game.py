@@ -1,7 +1,9 @@
 import pygame
 from PIL import Image
 from src.player import Player
-from src.Product import *
+from src.product import *
+from math import sqrt
+from numpy import argmin
 
 
 class Singleton(type):
@@ -167,14 +169,15 @@ class Game(metaclass=Singleton):
 
         return False
 
-    def run(self):
-        """
-        Rather self-explanatory: runs the game.
-        """
-        clk = pygame.time.Clock()
+    def pickClosestProduct(self):
+        dist = [sqrt((self.player.pos_rel[0] - product.pos_rel[0])**2 + (self.player.pos_rel[1] - product.pos_rel[1])**2) for product in self.products]
+        if dist:
+            self.player.basket.append(self.products.pop(argmin(dist)))
 
-        pygame.display.set_caption("Jeu")
-        screen = pygame.display.set_mode((1080, 720))
+    def run(self, screen):
+        from __main__ import State
+
+        clk = pygame.time.Clock()
 
         running = True
         while running:
@@ -182,6 +185,9 @@ class Game(metaclass=Singleton):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.pickClosestProduct()
 
             self.player.walking = False
 
@@ -192,7 +198,7 @@ class Game(metaclass=Singleton):
             screen.blit(self.map, self.map_pos_rel)
             self.player.draw(screen)
 
-            #Display product
+            # Display product
             for product in self.products:
                 product.draw(screen)
 
@@ -200,4 +206,4 @@ class Game(metaclass=Singleton):
 
             clk.tick(60)
 
-        pygame.quit()
+        return None
