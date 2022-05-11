@@ -1,6 +1,7 @@
 from enum import Enum
 from src.game import Game
 from src.menu import Menu
+from src.productwindow import *
 
 import pygame
 pygame.init()
@@ -18,6 +19,8 @@ def main():
 
     menu = Menu()
     game = Game()
+
+    product = ProductWindow()
 
     pygame.display.set_caption("Jeu")
     screen = pygame.display.set_mode((1080, 720))
