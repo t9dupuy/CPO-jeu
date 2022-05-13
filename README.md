@@ -43,3 +43,7 @@ Début du développemnt du menu.
 
 Passage du prorotype du graphe à l'utilisation dans le jeu. Passer de jupyter notbook à un fichier .py et enregistrer l'image en .png
 De plus il y avait des problèmes de compatibilité des librairies. 
+
+### Semaine 5
+
+Affichage du score dans le menu de fin. Normalisation du score pour son affichage.
