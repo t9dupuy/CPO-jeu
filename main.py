@@ -19,7 +19,6 @@ def main():
 
     menu = Menu()
     game = Game()
-
     product = ProductWindow()
 
     pygame.display.set_caption("Jeu")
@@ -28,7 +27,7 @@ def main():
     while True:
         match state:
             case State.MAIN_MENU:
-                state = menu.run(screen)
+                state = product.run()
             case State.PARAM:
                 print("In parameters")
             case State.GAME:

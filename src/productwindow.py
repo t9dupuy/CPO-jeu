@@ -1,4 +1,3 @@
-from typing import List
 
 import pygame
 from src.product import *
@@ -32,9 +31,7 @@ class ProductWindow():
 
             Sheet.draw_background(background, screen)
 
-            Sheet.draw_productinfo(background, screen, product)
-
-
+            Sheet().draw_productinfo(screen, product)
 
             # event handling, gets all event from the event queue
             for event in pygame.event.get():
@@ -42,7 +39,9 @@ class ProductWindow():
                     running = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if Sheet.staticButton.checkForInput(mouse_pos):
+                    if Sheet.staticButtons[0].checkForInput(mouse_pos):
+                        pygame.quit()
+                    elif Sheet.staticButtons[1].checkForInput(mouse_pos):
                         pygame.quit()
 
             pygame.display.flip()
@@ -54,25 +53,29 @@ class Sheet:
 
     pygame.init()
 
-    staticRect = pygame.Rect(250,150, 300, 500)
+    staticRect = pygame.Rect(1080/2-300/2, 720/2-500/2, 300, 500)
     staticFont =  pygame.font.Font("resources/fonts/Dunkin.otf", 50)
+    staticBigFont = pygame.font.Font("resources/fonts/Dunkin.otf", 70)
     staticTextToShow = ["Nutri : ", "Envir : ", "Price : "]
-    staticTextPos = (380, 300)
+    staticTextPos = (staticRect.left+130, staticRect.top+180)
     staticTextRender, staticTextRect = [], []
 
 
-    staticLinesStart = pygame.Vector2(275,staticTextPos[1]+50)
-    staticLinesEnd = pygame.Vector2(525, staticTextPos[1]+50)
+    staticLinesStart = pygame.Vector2(staticRect.left+10,staticTextPos[1]+50)
+    staticLinesEnd = pygame.Vector2(staticRect.right-10, staticTextPos[1]+50)
 
 
     for elem in range(len(staticTextToShow)):
         staticTextRender.append(staticFont.render(staticTextToShow[elem], True, "Black"))
         staticTextRect.append(staticTextRender[elem].get_rect(center=(staticTextPos[0], staticTextPos[1] + elem*100)))
 
-    staticButton = Button(color=(205, 92, 92), size=(200, 90), radius=10,
-                             pos=(390, 620),
+    staticButtons = (Button(color=(205, 92, 92), size=(200, 90), radius=10,
+                             pos=((staticRect.left+staticRect.width/2), staticRect.bottom),
                              text_input="ADD", font_type="resources/fonts/Dunkin.otf", base_color="White",
-                             hovering_color="Grey")
+                             hovering_color="Grey"), Button(color=(205, 92, 92), size=(35, 35), radius=10,
+                          pos=((staticRect.right), staticRect.top),
+                          text_input="X", font_type="resources/fonts/Dunkin.otf", base_color="White",
+                          hovering_color="Grey"))
 
 
 
@@ -92,8 +95,8 @@ class Sheet:
     def draw_productinfo(self, screen, product):
 
 
-        sourceName = Sheet.staticFont.render(product.name, True, "Black")
-        destName = sourceName.get_rect(center=(450, 200))
+        source = Sheet.staticBigFont.render(product.name, True, (205, 92, 92))
+        dest = source.get_rect(center=(Sheet.staticRect.left+205, Sheet.staticRect.top+65))
 
         scores = [product.sante, product.environemental, product.budget]
         scoresRender, scoresRect = [], []
@@ -106,9 +109,11 @@ class Sheet:
         for elem in range(len(scoresRender)):
             screen.blit(scoresRender[elem], scoresRect[elem])
 
-        screen.blit(sourceName, destName)
-        product.draw(screen)
+        screen.blit(source, dest)
+        screen.blit(pygame.transform.scale(product.sprite,(100,100)), (Sheet.staticRect.left+10,  Sheet.staticRect.top+20))
 
         mouse_pos = pygame.mouse.get_pos()
-        Sheet.staticButton.changeColor(mouse_pos)
-        Sheet.staticButton.update(screen)
+
+        for elem in range(2):
+            Sheet.staticButtons[elem].changeColor(mouse_pos)
+            Sheet.staticButtons[elem].update(screen)
