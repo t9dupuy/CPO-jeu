@@ -92,8 +92,8 @@ def basket_to_score(basket):
         score[1] += product.environemental
         score[2] += product.budget
 
-    score[0] /= len(basket)
-    score[1] /= len(basket)
-    score[2] /= len(basket)
+    score[0] /= len(basket) if len(basket) != 0 else 1
+    score[1] /= len(basket) if len(basket) != 0 else 1
+    score[2] /= len(basket) if len(basket) != 0 else 1
     return score
 
