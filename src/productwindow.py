@@ -19,12 +19,14 @@ class ProductWindow():
         pygame.display.set_caption("Window")
         screen = pygame.display.set_mode((width, length))
 
-        product = Product("Cod", 4, 4, 3, [500, 400], [280, 170], pygame.transform.scale(pygame.image.load("resources/products/16x16/cod.png"), (64, 64)))
+        product = Product("Cod", 4, 4, 3, [500, 400], [280, 170],
+                          pygame.transform.scale(pygame.image.load("resources/products/16x16/cod.png"), (64, 64)))
 
 
         running = True
         while running:
 
+            mouse_pos = pygame.mouse.get_pos()
 
 
             screen.blit(background, (0, 0))
