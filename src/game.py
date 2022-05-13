@@ -174,6 +174,11 @@ class Game(metaclass=Singleton):
         if dist:
             self.player.basket.append(self.products.pop(argmin(dist)))
 
+    def checkPlayerArrival(self):
+        if self.collision_layer[self.player.pos_rel[0] - self.map_pos_rel[0] + 30, self.player.pos_rel[1] - self.map_pos_rel[1] + 100] == (110, 200, 250, 255):
+            return True
+        return False
+
     def run(self, screen):
         from __main__ import State
 
@@ -189,6 +194,9 @@ class Game(metaclass=Singleton):
                     if event.key == pygame.K_SPACE:
                         self.pickClosestProduct()
 
+            if self.checkPlayerArrival():
+                return State.END_MENU
+
             self.player.walking = False
 
             self.handle_input(keys=pygame.key.get_pressed())
@@ -198,7 +206,8 @@ class Game(metaclass=Singleton):
             screen.blit(self.map, self.map_pos_rel)
             self.player.draw(screen)
 
-            # Display product
+
+        # Display product
             for product in self.products:
                 product.draw(screen)
 

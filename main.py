@@ -1,6 +1,8 @@
 from enum import Enum
 from src.game import Game
 from src.menu import Menu
+from src.parameter import Param
+from src.menu_fin import draw
 
 import pygame
 pygame.init()
@@ -17,6 +19,7 @@ def main():
     state = State.MAIN_MENU
 
     menu = Menu()
+    para = Param()
     game = Game()
 
     pygame.display.set_caption("Jeu")
@@ -27,11 +30,11 @@ def main():
             case State.MAIN_MENU:
                 state = menu.run(screen)
             case State.PARAM:
-                print("In parameters")
+                state = para.draw()
             case State.GAME:
                 state = game.run(screen)
             case State.END_MENU:
-                print("In end menu")
+                state = draw([4, 5, 3])
             case _:
                 break
 
