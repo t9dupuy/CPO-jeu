@@ -207,6 +207,8 @@ class Game(metaclass=Singleton):
             self.player.draw(screen)
 
 
+
+
         # Display product
             for product in self.products:
                 product.draw(screen)
