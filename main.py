@@ -2,7 +2,7 @@ from enum import Enum
 from src.game import Game
 from src.menu import Menu
 from src.parameter import Param
-from src.menu_fin import draw
+from src.menu_fin import draw, basket_to_score
 
 import pygame
 pygame.init()
@@ -34,7 +34,8 @@ def main():
                 game = Game()
                 state = game.run(screen)
             case State.END_MENU:
-                state = draw([4, 5, 3])
+                score = basket_to_score(game.player.basket)
+                state = draw(score)
             case _:
                 break
 

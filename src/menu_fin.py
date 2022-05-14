@@ -1,4 +1,5 @@
 import pygame
+from src.graph import plot_Star
 from src.menu import Button
 
 
@@ -10,6 +11,7 @@ def draw(score):
 
     # creation screen
     screen = pygame.display.set_mode([1080, 720])
+
 
     # creation font
     base_font = pygame.font.Font("resources/assets/font.ttf", 40)
@@ -26,6 +28,12 @@ def draw(score):
     recttitre = titre.get_rect()
     recttitre.center = (500, 50)
 
+    #Création_Graph
+    plot_Star(score[0]*10,score[1]*10,score[2]*10)
+    Grapheee = pygame.image.load("StarGraph.png")
+    rectGraph = Grapheee.get_rect()
+    rectGraph.center = (540, 400)
+
     # creation affichage score
     af_score = base_font_titre.render("SCORE : ", True, pygame.Color("black"))
     rectscore = af_score.get_rect()
@@ -37,7 +45,7 @@ def draw(score):
 
     list_button = []
     # create button quit
-    button_quit = Button(color=(0, 0, 0), size=(400, 100), radius=5, pos=(500, 600), text_input="QUITTER", font_type="resources/fonts/pixels.ttf", base_color="White", hovering_color="Grey")
+    button_quit = Button(color=(0, 0, 0), size=(400, 100), radius=5, pos=(500,650), text_input="QUITTER", font_type="resources/fonts/pixels.ttf", base_color="White", hovering_color="Grey")
     list_button.append(button_quit)
 
     while True:
@@ -61,6 +69,7 @@ def draw(score):
         screen.blit(titre, recttitre)
         screen.blit(af_score, rectscore)
         screen.blit(af_score_2, rectscore_2)
+        screen.blit(Grapheee, rectGraph)
 
         # affichage bouton
         for button in list_button:
@@ -74,3 +83,17 @@ def draw(score):
         # clock.tick(60) means that for every second at most
         # 60 frames should be passed.
         clock.tick(60)
+
+def basket_to_score(basket):
+
+    score = [0, 0, 0]
+    for product in basket:
+        score[0] += product.sante
+        score[1] += product.environemental
+        score[2] += product.budget
+
+    score[0] /= len(basket) if len(basket) != 0 else 1
+    score[1] /= len(basket) if len(basket) != 0 else 1
+    score[2] /= len(basket) if len(basket) != 0 else 1
+    return score
+
