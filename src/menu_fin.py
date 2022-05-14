@@ -1,5 +1,5 @@
 import pygame
-from src.Graph import plot_Star
+from src.graph import plot_Star
 from src.menu import Button
 
 
