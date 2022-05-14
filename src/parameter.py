@@ -25,16 +25,16 @@ class Param:
         base_font_titre.set_bold(True)
 
         # import image de fond et adaptation taille
-        image_fond = pygame.image.load("resources/wallpaper/1.jpg")
-        image_fond = pygame.transform.scale(image_fond, [1080, 720])
+        image_fond = pygame.image.load("resources/wallpaper/param.jpg")
+        image_fond = pygame.transform.scale(image_fond, [1400, 720])
 
         # creation titre
-        titre = base_font_titre.render("ParamÃ¨tres", True, pygame.Color("black"))
+        titre = base_font_titre.render("Paramètres", True, pygame.Color("black"))
         recttitre = titre.get_rect()
         recttitre.center = (500, 50)
 
         # creation difficultÃ©
-        dif = base_font.render("DifficultÃ©", True, pygame.Color("black"))
+        dif = base_font.render("Difficulté", True, pygame.Color("black"))
         rectdif = dif.get_rect()
         rectdif.center = (250, 240)
 

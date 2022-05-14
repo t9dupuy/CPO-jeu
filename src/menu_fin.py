@@ -18,7 +18,7 @@ def draw(score):
     base_font_titre.set_bold(True)
 
     # import image de fond et adaptation taille
-    image_fond = pygame.image.load("resources/wallpaper/1.jpg")
+    image_fond = pygame.image.load("resources/wallpaper/menu_fin.jpeg")
     image_fond = pygame.transform.scale(image_fond, [1080, 720])
 
     # creation titre

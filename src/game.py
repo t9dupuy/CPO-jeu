@@ -2,35 +2,18 @@ import pygame
 from PIL import Image
 from src.player import Player
 from src.product import *
+from src.productwindow import Sheet
 from math import sqrt
 from numpy import argmin
 
 
-class Singleton(type):
-    """
-    Singleton pattern. To be used as metaclass.
-
-    See also
-    --------
-    class Game
-    """
-    _instances = {}
-
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
-
-
-class Game(metaclass=Singleton):
+class Game:
     """
     Game class containing all basic information about the game state and parameters
     """
     def __init__(self):
-        pygame.init()
-
         # Background image of the map
-        self.map: pygame.image = pygame.image.load("resources/tiles/png/v1.png")
+        self.map: pygame.image = pygame.image.load("resources/tiles/png/v2.png")
         self.map_pos_rel = [-1500, -1300]
 
         # Player instance
@@ -47,6 +30,8 @@ class Game(metaclass=Singleton):
 
         # Dictionary of fonts
         self.fonts = {'pixels32': pygame.font.Font("resources/fonts/pixels.ttf", 32)}
+
+        self.prod_info = Sheet()
 
     def handle_input(self, keys):
         """
@@ -169,7 +154,7 @@ class Game(metaclass=Singleton):
 
         return False
 
-    def pickClosestProduct(self):
+    def pickClosestProduct(self, screen):
         dist = [sqrt((self.player.pos_rel[0] - product.pos_rel[0])**2 + (self.player.pos_rel[1] - product.pos_rel[1])**2) for product in self.products]
         if dist:
             self.player.basket.append(self.products.pop(argmin(dist)))
@@ -192,7 +177,7 @@ class Game(metaclass=Singleton):
                     running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.pickClosestProduct()
+                        self.pickClosestProduct(screen)
 
             if self.checkPlayerArrival():
                 return State.END_MENU
@@ -206,10 +191,11 @@ class Game(metaclass=Singleton):
             screen.blit(self.map, self.map_pos_rel)
             self.player.draw(screen)
 
-
-        # Display product
+            # Display product
             for product in self.products:
                 product.draw(screen)
+
+            #self.prod_info.draw_productinfo(screen, self.products[0])
 
             pygame.display.update()
 

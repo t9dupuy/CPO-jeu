@@ -3,7 +3,8 @@ import pygame
 
 class Menu:
     def __init__(self):
-        self.background = pygame.image.load("resources/wallpaper/market.jpg")
+        self.background = pygame.image.load("resources/wallpaper/menu.jpg")
+        self.background = pygame.transform.scale(self.background, (1080, 720))
 
     def run(self, screen):
         from __main__ import State
@@ -27,6 +28,8 @@ class Menu:
 
         running = True
         while running:
+
+            clk = pygame.time.Clock()
 
             screen.blit(self.background, (0, 0))
 
@@ -52,6 +55,8 @@ class Menu:
                         return None
 
             pygame.display.update()
+
+            clk.tick(60)
 
 
 class Button:
