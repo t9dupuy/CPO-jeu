@@ -32,6 +32,7 @@ class Game:
         self.fonts = {'pixels32': pygame.font.Font("resources/fonts/pixels.ttf", 32)}
 
         self.prod_info = Sheet()
+        self.looking_at_product = (False, None)
 
     def handle_input(self, keys):
         """
@@ -154,10 +155,11 @@ class Game:
 
         return False
 
-    def pickClosestProduct(self, screen):
+    def pickClosestProduct(self):
         dist = [sqrt((self.player.pos_rel[0] - product.pos_rel[0])**2 + (self.player.pos_rel[1] - product.pos_rel[1])**2) for product in self.products]
         if dist:
-            self.player.basket.append(self.products.pop(argmin(dist)))
+            return argmin(dist)
+        return -1
 
     def checkPlayerArrival(self):
         if self.collision_layer[self.player.pos_rel[0] - self.map_pos_rel[0] + 30, self.player.pos_rel[1] - self.map_pos_rel[1] + 100] == (110, 200, 250, 255):
@@ -169,6 +171,8 @@ class Game:
 
         clk = pygame.time.Clock()
 
+        ret = 0
+
         running = True
         while running:
             # event handling, gets all event from the event queue
@@ -176,8 +180,10 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        self.pickClosestProduct(screen)
+                    if event.key == pygame.K_SPACE and not self.looking_at_product[0]:
+                        i = self.pickClosestProduct()
+                        if i != -1:
+                            self.looking_at_product = (True, i)
 
             if self.checkPlayerArrival():
                 return State.END_MENU
@@ -195,7 +201,14 @@ class Game:
             for product in self.products:
                 product.draw(screen)
 
-            #self.prod_info.draw_productinfo(screen, self.products[0])
+            if self.looking_at_product[0]:
+                ret = self.prod_info.draw_productinfo(screen, self.products[self.looking_at_product[1]])
+                if ret == -1:
+                    self.looking_at_product = (False, None)
+                elif ret == 1:
+                    self.player.basket.append(self.products.pop(self.looking_at_product[1]))
+                    self.looking_at_product = (False, None)
+
 
             pygame.display.update()
 
