@@ -6,7 +6,8 @@ from math import cos, pi
 class Product:
     t = 0
 
-    def __init__(self, sante, environemental, budget, pos_fix, pos_rel, sprite):
+    def __init__(self, name, sante, environemental, budget, pos_fix, pos_rel, sprite):
+        self.name = name
         self.sante = sante
         self.environemental = environemental
         self.budget = budget
@@ -29,10 +30,10 @@ class Product:
 
 
 def instance_products(map_pos_rel):  # Intenciation des Produits
-    products = [Product(4, 4, 3, [560, 350], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/cod.png"), (64, 64))),
-                Product(4, 4, 3, [270, 420], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/salmon.png"), (64, 64))),
-                Product(4, 4, 3, [1550, 420], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/beef.png"), (64, 64))),
-                Product(4, 4, 3, [1650, 420], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/chicken.png"), (64, 64)))]
+    products = [Product("Cod", 4, 4, 3, [560, 350], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/cod.png"), (64, 64))),
+                Product("Salmon", 4, 4, 3, [270, 420], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/salmon.png"), (64, 64))),
+                Product("Beef", 4, 4, 3, [1550, 420], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/beef.png"), (64, 64))),
+                Product("Chicken", 4, 4, 3, [1650, 420], [0, 0], pygame.transform.scale(pygame.image.load("resources/products/16x16/chicken.png"), (64, 64)))]
 
     for product in products:
         product.update(map_pos_rel)

@@ -20,7 +20,6 @@ def main():
 
     menu = Menu()
     para = Param()
-    game = Game()
 
     pygame.display.set_caption("Jeu")
     screen = pygame.display.set_mode((1080, 720))
@@ -32,6 +31,7 @@ def main():
             case State.PARAM:
                 state = para.draw()
             case State.GAME:
+                game = Game()
                 state = game.run(screen)
             case State.END_MENU:
                 state = draw([4, 5, 3])
