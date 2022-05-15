@@ -6,7 +6,10 @@ class Param:
 
     def __init__(self):
         self.difficulte = 1
-        self.music = False
+        self.music = True
+        pygame.mixer.music.load("resources/music/track.mp3")
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play(-1)
 
     def draw(self):
         # pygame.init() will initialize all
@@ -108,10 +111,12 @@ class Param:
                         button_dif_2.color_rect = button_dif_color
                         button_dif_1.color_rect = button_dif_color
                     if button_music_active.checkForInput(menu_mouse_pos):
+                        pygame.mixer.music.unpause()
                         self.music = True
                         button_music_active.color_rect = pygame.Color(150, 0, 0)
                         button_music_inactive.color_rect = button_music_color
                     if button_music_inactive.checkForInput(menu_mouse_pos):
+                        pygame.mixer.music.pause()
                         self.music = False
                         button_music_inactive.color_rect = pygame.Color(150, 0, 0)
                         button_music_active.color_rect = button_music_color

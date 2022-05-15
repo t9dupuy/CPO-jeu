@@ -5,13 +5,14 @@ from src.product import *
 from src.productwindow import Sheet
 from math import sqrt
 from numpy import argmin
+import time
 
 
 class Game:
     """
     Game class containing all basic information about the game state and parameters
     """
-    def __init__(self):
+    def __init__(self, param):
         # Background image of the map
         self.map: pygame.image = pygame.image.load("resources/tiles/png/v2.png")
         self.map_pos_rel = [-1500, -1300]
@@ -29,10 +30,12 @@ class Game:
         self.borders = [300, 520, 200, 880]
 
         # Dictionary of fonts
-        self.fonts = {'pixels32': pygame.font.Font("resources/fonts/pixels.ttf", 32)}
+        self.fonts = {'dunkin48': pygame.font.Font("resources/fonts/Dunkin.otf", 48)}
 
         self.prod_info = Sheet()
         self.looking_at_product = (False, None)
+
+        self.timer = 60 + (3 - param.difficulte) * 30
 
     def handle_input(self, keys):
         """
@@ -172,6 +175,7 @@ class Game:
         clk = pygame.time.Clock()
 
         ret = 0
+        t0 = time.time()
 
         running = True
         while running:
@@ -201,6 +205,7 @@ class Game:
             for product in self.products:
                 product.draw(screen)
 
+            # Display product info
             if self.looking_at_product[0]:
                 ret = self.prod_info.draw_productinfo(screen, self.products[self.looking_at_product[1]])
                 if ret == -1:
@@ -209,6 +214,12 @@ class Game:
                     self.player.basket.append(self.products.pop(self.looking_at_product[1]))
                     self.looking_at_product = (False, None)
 
+            # Display timer
+            time_left = self.timer - (time.time() - t0)
+            screen.blit(self.fonts["dunkin48"].render(str(int(time_left)), False, "Black" if time_left > 10 else "Red"), (950, 0))
+
+            if time_left < 0:
+                return State.END_MENU
 
             pygame.display.update()
 
