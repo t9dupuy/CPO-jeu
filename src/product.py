@@ -26,7 +26,7 @@ class Product:
         """
         # define product size on screen
         screen.blit(self.sprite, [self.pos_rel[0], self.pos_rel[1] - 10 * (cos(Product.t) + 1)])
-        Product.t = (Product.t + 0.01) % (2 * pi)
+        Product.t = (Product.t + 0.005) % (2 * pi)
 
 
 def instance_products(map_pos_rel):  # Produits

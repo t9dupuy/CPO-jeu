@@ -31,7 +31,7 @@ def main():
             case State.PARAM:
                 state = para.draw()
             case State.GAME:
-                game = Game()
+                game = Game(para)
                 state = game.run(screen)
             case State.END_MENU:
                 score = basket_to_score(game.player.basket)

@@ -41,7 +41,7 @@ def draw(score):
     score_final = score[0]+score[1]+score[2]
     af_score_2 = base_font_titre.render(str(score_final), True, pygame.Color("black"))
     rectscore_2 = af_score_2.get_rect()
-    rectscore_2.center = (650, 200)
+    rectscore_2.center = (850, 200)
 
     list_button = []
     # create button quit
