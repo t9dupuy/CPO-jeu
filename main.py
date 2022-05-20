@@ -18,6 +18,7 @@ class State(Enum):
 def main():
     state = State.MAIN_MENU
 
+    game = None
     menu = Menu()
     para = Param()
 
