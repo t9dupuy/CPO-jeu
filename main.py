@@ -36,7 +36,7 @@ def main():
                 state = game.run(screen)
             case State.END_MENU:
                 score = basket_to_score(game.player.basket)
-                state = draw(score)
+                state = draw(score, screen)
             case _:
                 break
 

@@ -3,15 +3,11 @@ from src.graph import plot_Star
 from src.menu import Button
 
 
-def draw(score):
+def draw(score, screen):
     from __main__ import State
     # pygame.init() will initialize all
     # imported module
     clock = pygame.time.Clock()
-
-    # creation screen
-    screen = pygame.display.set_mode([1080, 720])
-
 
     # creation font
     base_font = pygame.font.Font("resources/assets/font.ttf", 40)
