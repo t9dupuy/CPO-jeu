@@ -22,7 +22,7 @@ def main():
     menu = Menu()
     para = Param()
 
-    pygame.display.set_caption("Jeu")
+    pygame.display.set_caption("Responsible Shopping")
     screen = pygame.display.set_mode((1080, 720))
 
     while True:

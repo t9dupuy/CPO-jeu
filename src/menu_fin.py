@@ -34,7 +34,7 @@ def draw(score, screen):
     af_score = base_font_titre.render("SCORE : ", True, pygame.Color("black"))
     rectscore = af_score.get_rect()
     rectscore.center = (400, 200)
-    score_final = score[0]+score[1]+score[2]
+    score_final = round((score[0]+score[1]+score[2])/3, 2)
     af_score_2 = base_font_titre.render(str(score_final), True, pygame.Color("black"))
     rectscore_2 = af_score_2.get_rect()
     rectscore_2.center = (850, 200)
