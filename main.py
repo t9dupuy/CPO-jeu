@@ -18,10 +18,11 @@ class State(Enum):
 def main():
     state = State.MAIN_MENU
 
+    game = None
     menu = Menu()
     para = Param()
 
-    pygame.display.set_caption("Jeu")
+    pygame.display.set_caption("Responsible Shopping")
     screen = pygame.display.set_mode((1080, 720))
 
     while True:
@@ -35,7 +36,7 @@ def main():
                 state = game.run(screen)
             case State.END_MENU:
                 score = basket_to_score(game.player.basket)
-                state = draw(score)
+                state = draw(score, screen)
             case _:
                 break
 

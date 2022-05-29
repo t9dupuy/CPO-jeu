@@ -3,15 +3,11 @@ from src.graph import plot_Star
 from src.menu import Button
 
 
-def draw(score):
+def draw(score, screen):
     from __main__ import State
     # pygame.init() will initialize all
     # imported module
     clock = pygame.time.Clock()
-
-    # creation screen
-    screen = pygame.display.set_mode([1080, 720])
-
 
     # creation font
     base_font = pygame.font.Font("resources/assets/font.ttf", 40)
@@ -38,7 +34,7 @@ def draw(score):
     af_score = base_font_titre.render("SCORE : ", True, pygame.Color("black"))
     rectscore = af_score.get_rect()
     rectscore.center = (400, 200)
-    score_final = score[0]+score[1]+score[2]
+    score_final = round((score[0]+score[1]+score[2])/3, 2)
     af_score_2 = base_font_titre.render(str(score_final), True, pygame.Color("black"))
     rectscore_2 = af_score_2.get_rect()
     rectscore_2.center = (850, 200)
